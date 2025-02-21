@@ -115,4 +115,54 @@ fn main() {
     let element = a[index];
 
     println!("The value of the element at the index: {index} is {element}");
+
+    // 3.3 Functions
+
+    another_function(32);
+
+    print_label_measurement(32, 'h');
+
+    // Statements and Expressions
+
+    // This line results in error
+    // let x = (let y = 6); // This is a statement and statements don't return a value.
+
+    // This is an expression
+    let y = {
+        let x = 3;
+        x + 1 // This an expression and it evaluates to 4 and is returned to y, also has no semicolon
+    };
+
+    println!("The value of y is : {y}");
+
+    // Functions with return values
+    let y = five();
+    println!("The value of y is: {y}");
+
+    let x = plus_one(7);
+    println!("The value of x is: {x}");
+
+    println!("{}", plus_one({
+
+        let y = 1;
+
+        y + 1
+
+    }));
+}
+
+fn another_function(x: i32) {
+    println!("The value of x that is passed is: {x}");
+}
+
+fn print_label_measurement(value: i32, unit_label: char) {
+    println!("The measurement is: {value}{unit_label}");
+}
+
+fn five() -> i32 { // we don't name return values, but we must declare its type
+    5 // implicit return
+}
+
+fn plus_one(x: i32) -> i32 {
+    x + 1
 }
