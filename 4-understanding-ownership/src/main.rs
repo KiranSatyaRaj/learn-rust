@@ -1,3 +1,5 @@
+use std::str;
+
 fn read(y: bool) {
     if y {
         println!("y is true");
@@ -61,12 +63,44 @@ fn main() {
     let s = format!("{} {}", m1_again, m2_again);
     println!("formatted s is: {s}");
 
-    // Reference
+    // References are non-owning pointers
 
     let m1 = String::from("Hello");
     let m2 = String::from("World");
     greet3(&m1, &m2); // note the ampersands
     println!("{}", format!("{} {}", m1, m2));
+
+    // Dereferencing a Pointer Accesses its Data
+
+    let mut x = Box::new(1);
+    let a = *x;                     // *x reads the heap value, so a = 1
+    println!("x is {x} and a is {a}");
+    *x += 1;                             // *x on the left-side modifies the heap value
+    println!("x is {x} and a is {a}");   // so x points to the value 2
+
+    let r1 = &x;              // r1 points to x on the stack
+    let b = **r1;                   // two dereferences to get us to the heap value
+
+    let r2 = &*x;                  // r2 directly points to the value in the heap
+    let c = *r2;                    // so only one dereferencing is needed to read it
+
+    // implicit and explicit dereferencing
+
+    let x = Box::new(-1);
+    let x_abs_1 = i32::abs(*x);     // explicit dereference
+    let x_abs_2 = x.abs();          // implicit dereference
+    assert_eq!(x_abs_1, x_abs_2);
+
+    let r = &x;
+    let r_abs_1 = i32::abs(**r);    // explicit dereference (twice)
+    let r_abs_2 = r.abs();             // implicit dereference (twice)
+    assert_eq!(r_abs_1, r_abs_2);
+
+    let s = String::from("Hello");
+    let s_len_1 = str::len(&s);
+    let s_len_2 = s.len();
+    assert_eq!(s_len_1, s_len_2);
+
 }
 
 fn greet3(g1: &String, g2: &String) { // note the ampersands
