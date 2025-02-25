@@ -101,6 +101,13 @@ fn main() {
     let s_len_2 = s.len();
     assert_eq!(s_len_1, s_len_2);
 
+    // Rust avoids simultaneous aliasing and mutation
+    let mut v = vec![1, 2, 3];
+    let num = &v[2];
+    v.push(4);
+    // references in rust provide temporary aliasing
+    // println!("The value of num is: {}", *num); // cannot alias and mutate at the same time
+
 }
 
 fn greet3(g1: &String, g2: &String) { // note the ampersands
