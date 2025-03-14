@@ -158,7 +158,7 @@ fn main() {
     let s_ref = &s;
 
     drop(s); // drop expects s to have R and O but s_ref has O perm
-    println!("value of s_ref is {}", s_ref);
+    // println!("value of s_ref is {}", s_ref);
 
     // 4.3 Fixing Ownership Errors
 
@@ -170,7 +170,7 @@ fn main() {
 
     let mut name = vec![String::from("Ferris")];
     let first = &name[0];
-    safe_stringify_name_with_title(&mut name);
+    // safe_stringify_name_with_title(&mut name);
     println!("{}", first);
 
     let v: Vec<String> = vec![String::from("Hello World")];
@@ -206,8 +206,8 @@ fn main() {
         String::from("Ferris"),
         String::from("Rustacean"),
     );
-    let first = get_first(&name);
-    name.1.push_str(", Esq");
+    // let first = get_first(&name);
+    // name.1.push_str(", Esq");
     println!("{first} {}", name.1);
 
     // Mutating Different Array elements
@@ -219,15 +219,15 @@ fn main() {
     println!("{a:?}");
 
     let mut a = [0, 1, 2, 3];
-    let x = &mut a[1];
-    let y = &a[2];
-    *x += *y;
+    // let x = &mut a[1];
+    // let y = &a[2];
+    // *x += *y;
 
     let mut a = [0, 1, 2, 3];
-    let (a_l, a_r) = a.split_at_mut(2);
-    let x = &mut a[1];
-    let y = &a_r[0];
-    *x += y;
+    // let (a_l, a_r) = a.split_at_mut(2);
+    // let x = &mut a[1];
+    // let y = &a_r[0];
+    // *x += y;
 
     let s = String::from("hello");
     let s_ref = &s;
@@ -237,7 +237,82 @@ fn main() {
     let y = &a[2] as *const i32;
     unsafe{*x += *y};  // DO NOT DO THIS unless you know what you're doing!
 
+    // 4.4 The Slice Type
+    let mut s = String::from("Hello World");
+    let word = first_word(&s);
+    s.clear();
 
+    // better way
+    let mut s = String::from("Hello world");
+    let hello = &s[0..5];
+    let world = &s[6..11];
+    let s2 = &s;
+    println!("{hello}");
+    s.push_str(" How are you?");
+
+    // Range Syntax
+    let slice = &s[0..2];
+    let slice = &s[..2];
+
+    let len = s.len();
+    let slice = &s[3..len];
+    let slice = &s[3..];
+
+    let mut s = String::from("hello world");
+    let word = first_Word(&s);
+    s.clear();
+    // println!("the first word is {}", word); // cannot reference slice of s as its cleared in the previous line
+
+    // String Literals are Slices
+    let mut s = "Hello world!";
+
+    let my_string = String::from("hello world");
+
+    // first_Word works on slices of 'String s, whether partial or whole
+    let word =  first_Word(&my_string[0..6]);
+    let word = first_Word(&my_string[..]);
+    // first_Word also works on references  to String s, which are equivalent
+    // to whole slices of String s
+    let word = first_Word(&my_string);
+
+    let my_string_literal = "hello world";
+
+    // first_Word works on slices of string literals, whether partial or whole
+    let word = first_Word(&my_string_literal[0..6]);
+    let word = first_Word(&my_string_literal[..]);
+    let word = first_Word(&my_string_literal);
+
+    // Other slices
+    let a = [1, 2, 3, 4, 5];
+    let slice = &a[..3];
+
+    println!(
+        "&String={} &str={}",
+        std::mem::size_of::<&String>(),
+        std::mem::size_of::<&str>(),
+    );
+}
+
+
+fn first_Word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+    &s[..]
+}
+fn first_word(s: &String) -> usize {
+    let bytes = s.as_bytes();  // an array of bytes
+
+    for (i, &item)  in bytes.iter().enumerate() {  // an iterator over array of bytes
+        if item == b' ' {  // b' ' is byte literal
+            return i;
+        }
+    }
+    s.len()
 }
 
 // unsafe
@@ -283,7 +358,7 @@ fn add_Big_string(dst: &mut Vec<String>, src: &[String]) {
 // safe
 fn name_with_Title(name: &Vec<String>) -> String {
     let mut full =  name.join(" ");
-    full.push(" Esq.");
+    // full.push(" Esq.");
     full
 }
 fn name_with_title(name: &Vec<String>) -> String {
