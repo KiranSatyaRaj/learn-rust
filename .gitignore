@@ -8,4 +8,6 @@
 /4-understanding-ownership/target
 /5-structs/target
 /5-structs/methods/target
-5-structs/rectangles/target
+/5-structs/rectangles/target
+/6-enums-and-pattern-matching/target
+/6-enums-and-pattern-matching/match-control-flow/target
