@@ -1,13 +1,3 @@
 /.idea
-/1-hello-world/target
-/2-guessing-game/target
-/3-common-programming-concepts/target
-/3-common-programming-concepts/fahrenheit-to-degree-celsius/target
-/3-common-programming-concepts/fibonacci-number/target
-3-common-programming-concepts/twelve-days-of-christmas-carol/target
-/4-understanding-ownership/target
-/5-structs/target
-/5-structs/methods/target
-/5-structs/rectangles/target
-/6-enums-and-pattern-matching/target
-/6-enums-and-pattern-matching/match-control-flow/target
+**/target
+**/**/target
