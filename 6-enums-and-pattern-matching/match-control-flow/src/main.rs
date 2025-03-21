@@ -125,3 +125,11 @@ fn plus_one(x: Option<i32>) -> Option<i32> {
     //     Some(i) => Some(i + 1),
     // }
 }
+
+fn decr_twice_v1(n: u32) -> Option<u32> {
+    match n {
+        0 => None,
+        1 => None,
+        n => Some(n - 2),
+    }
+}
