@@ -1,0 +1,10 @@
+[package]
+name = "unrecoverable-errrors"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+#panic = "abort"  # If you want the resultant binary to be as small as possible, here OS will clean up our program call stack
+#panic = "unwind" # If you want the rust compiler to unwind the call stack and clean the memory, it's a lot of work
+
+[dependencies]
