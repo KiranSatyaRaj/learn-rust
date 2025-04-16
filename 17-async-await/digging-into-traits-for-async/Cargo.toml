@@ -1,0 +1,6 @@
+[package]
+name = "digging-into-traits-for-async"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
